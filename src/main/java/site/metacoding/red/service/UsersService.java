@@ -50,7 +50,7 @@ public class UsersService {
 		boardsDao.updateByUsersId(id);
 	}
 	
-	public boolean 아이디중복확인(String username) {
+	public boolean 유저네임중복확인(String username) {
 		Users usersPS = usersDao.findByUsername(username);
 		
 		if(usersPS == null) { // 아이디가 중복 안됨

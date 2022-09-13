@@ -5,7 +5,8 @@
 <mapper namespace="site.metacoding.red.domain.users.UsersDao">
 
 	<insert id="insert">
-		INSERT INTO users(username, password, email, createdAt)
+		INSERT INTO users(username, password, email,
+		createdAt)
 		VALUES(#{username}, #{password}, #{email}, now())
 	</insert>
 
@@ -20,7 +21,8 @@
 	</select>
 
 	<insert id="update">
-		UPDATE users SET password = #{password}, email = #{email} 
+		UPDATE users SET password = #{password}, email =
+		#{email}
 		WHERE id = #{id}
 	</insert>
 
@@ -33,5 +35,9 @@
 		SELECT * FROM users WHERE username = #{username}
 	</select>
 
+	<update id="updateByUsersId">
+		UPDATE boards SET usersId = null WHERE usersId =
+		#{usersId}
+	</update>
 
 </mapper>
