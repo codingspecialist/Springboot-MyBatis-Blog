@@ -30,8 +30,7 @@ create table boards(
     title varchar(150),
     content longtext,
     usersId int,
-    createdAt TIMESTAMP,
-    CONSTRAINT fk_users_id FOREIGN KEY(usersId) REFERENCES users(id)
+    createdAt TIMESTAMP
 );
 ```
 
