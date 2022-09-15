@@ -26,6 +26,10 @@ public class UsersService {
 	public Users 로그인(LoginDto loginDto) {
 		Users usersPS = usersDao.findByUsername(loginDto.getUsername());
 
+		if(usersPS == null) {
+			return null;
+		}
+		
 		if(usersPS.getPassword().equals(loginDto.getPassword())) {
 			return usersPS;
 		}else {
@@ -33,7 +37,7 @@ public class UsersService {
 		}
 	}
 	
-	public void 회원수정(Integer id, UpdateDto updateDto) {
+	public Users 회원수정(Integer id, UpdateDto updateDto) {
 		// 1. 영속화
 		Users usersPS = usersDao.findById(id);
 		
@@ -42,6 +46,8 @@ public class UsersService {
 		
 		// 3. 디비 수행
 		usersDao.update(usersPS);
+		
+		return usersPS;
 	}
 	
 	@Transactional(rollbackFor = RuntimeException.class)

@@ -71,15 +71,17 @@ public class UsersController {
 	}
 	
 	@PutMapping("/users/{id}")
-	public String update(@PathVariable Integer id, UpdateDto updateDto) {
-		usersService.회원수정(id, updateDto);
-		return "redirect:/users/"+id;
+	public @ResponseBody CMRespDto<?> update(@PathVariable Integer id, @RequestBody UpdateDto updateDto) {
+		Users usersPS = usersService.회원수정(id, updateDto);
+		session.setAttribute("principal", usersPS); // 세션 동기화
+		return new CMRespDto<>(1, "회원수정 성공", null);
 	}
 	
 	@DeleteMapping("/users/{id}")
-	public @ResponseBody String delete(@PathVariable Integer id) {
+	public @ResponseBody CMRespDto<?> delete(@PathVariable Integer id) {
 		usersService.회원탈퇴(id);
-		return Script.href("/loginForm", "회원탈퇴가 완료되었습니다");
+		session.invalidate();
+		return new CMRespDto<>(1, "회원탈퇴성공", null);
 	}
 	
 	@GetMapping("/logout")
