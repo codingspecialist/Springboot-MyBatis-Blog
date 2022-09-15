@@ -24,6 +24,7 @@ public class BoardsController {
 
 	private final HttpSession session;
 	private final BoardsService boardsService;
+
 	
 	/***
 	 * 
