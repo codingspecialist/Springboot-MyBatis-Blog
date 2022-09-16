@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import lombok.RequiredArgsConstructor;
 import site.metacoding.red.domain.users.Users;
 import site.metacoding.red.service.UsersService;
-import site.metacoding.red.util.Script;
 import site.metacoding.red.web.dto.request.users.JoinDto;
 import site.metacoding.red.web.dto.request.users.LoginDto;
 import site.metacoding.red.web.dto.request.users.UpdateDto;
@@ -106,7 +105,7 @@ public class UsersController {
 	}
 	
 	@DeleteMapping("/users/{id}")
-	public @ResponseBody CMRespDto<?> delete(@PathVariable Integer id) {
+	public @ResponseBody CMRespDto<?> delete(@PathVariable Integer id, HttpServletResponse response) {
 		usersService.회원탈퇴(id);
 		session.invalidate();
 		return new CMRespDto<>(1, "회원탈퇴성공", null);

@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class PagingDto {
+	public static final int ROW = 5;
 	private boolean isNotResult;
 	private String keyword;
 	private Integer blockCount; //  상수  한페이지에 페이지 넘수 개수(5) 1-5, 6-10
