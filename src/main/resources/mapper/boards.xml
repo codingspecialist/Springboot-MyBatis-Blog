@@ -29,7 +29,7 @@
 	<select id="findAll"
 		resultType="site.metacoding.red.web.dto.response.boards.MainDto">
 		SELECT
-		b.id, b.title, if(u.username is null, '익명', u.username) AS username
+		b.id, b.title, if(u.username is null, 'anomy', u.username) AS username
 		FROM
 		boards b
 		LEFT OUTER JOIN
