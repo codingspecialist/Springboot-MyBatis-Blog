@@ -1,5 +1,8 @@
 package site.metacoding.red.web;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -35,9 +38,9 @@ public class BoardsController {
 	 */
 	
 	@PutMapping("/boards/{id}")
-	public String update(@PathVariable Integer id, UpdateDto updateDto) {
+	public @ResponseBody CMRespDto<?> update(@PathVariable Integer id, @RequestBody UpdateDto updateDto) {
 		boardsService.게시글수정하기(id, updateDto);
-		return "redirect:/boards/" + id;
+		return new CMRespDto<>(1, "글수정성공", null);
 	}
 
 	@GetMapping("/boards/{id}/updateForm")
@@ -48,9 +51,9 @@ public class BoardsController {
 	}
 
 	@DeleteMapping("/boards/{id}")
-	public String deleteBoards(@PathVariable Integer id) {
+	public @ResponseBody CMRespDto<?> deleteBoards(@PathVariable Integer id) {
 		boardsService.게시글삭제하기(id);
-		return "redirect:/";
+		return new CMRespDto<>(1, "게시글삭제", null);
 	}
 
 	@PostMapping("/boards")
@@ -64,6 +67,11 @@ public class BoardsController {
 	public String getBoardList(Model model, Integer page, String keyword) { // 0 -> 0, 1->10, 2->20
 		PagingDto pagingDto = boardsService.게시글목록보기(page, keyword);
 		model.addAttribute("pagingDto", pagingDto);
+		
+		Map<String, Object> referer = new HashMap<>();
+		referer.put("page", pagingDto.getCurrentPage());
+		referer.put("keyword", pagingDto.getKeyword());
+		session.setAttribute("referer", referer);
 		return "boards/main";
 	}
 

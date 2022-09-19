@@ -7,7 +7,7 @@
 	<div class="d-flex justify-content-end">
 		<div style="width: 300px">
 			<form class="d-flex" method="get" action="/">
-				<input class="form-control me-2" type="text" placeholder="Search">
+				<input class="form-control me-2" type="text" placeholder="Search" name="keyword">
 				<button class="btn btn-primary" type="submit">Search</button>
 			</form>
 		</div>
