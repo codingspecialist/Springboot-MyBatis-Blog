@@ -47,6 +47,12 @@ public class BoardsController {
 		return new CMRespDto<>(1, "좋아요 성공", null);
 	}
 	
+	@DeleteMapping("/boards/{id}/loves/{lovesId}")
+	public @ResponseBody CMRespDto<?> deleteLoves(@PathVariable Integer id, @PathVariable Integer lovesId){
+		boardsService.좋아요취소(lovesId);
+		return new CMRespDto<>(1, "좋아요 취소 성공", null);
+	}
+	
 	@PutMapping("/boards/{id}")
 	public @ResponseBody CMRespDto<?> update(@PathVariable Integer id, @RequestBody UpdateDto updateDto) {
 		boardsService.게시글수정하기(id, updateDto);
