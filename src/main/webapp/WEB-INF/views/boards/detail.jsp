@@ -5,28 +5,29 @@
 <input id="page" type="hidden" value="${sessionScope.referer.page}">
 <input id="keyword" type="hidden" value="${sessionScope.referer.keyword}">
 <div class="container">
-	<br /> <br />
+	<br /> <br /> <input id="id" type="hidden" value="${detailDto.boards.id}" />
 
+	<div class="d-flex">
 
-		<div class="d-flex">
-		
-			<a href="/boards/${boards.id}/updateForm" class="btn btn-warning">수정하러가기</a>
+		<a href="/boards/${detailDto.boards.id}/updateForm" class="btn btn-warning">수정하러가기</a>
 
-			<form>
-				<input id="id" type="hidden" value="${boards.id}" />
-				<button id="btnDelete" class="btn btn-danger">삭제</button>
-			</form>
-		</div>
+		<form>
+			<button id="btnDelete" class="btn btn-danger">삭제</button>
+		</form>
+	</div>
 
 
 	<br />
 	<div class="d-flex justify-content-between">
-		<h3>${boards.title}</h3>
-		<div>좋아요수 : <span id="countLove">10</span> <i id="iconLove" class="fa-regular fa-heart my_pointer"></i></div>
+		<h3>${detailDto.boards.title}</h3>
+		<div>
+			좋아요수 : <span id="countLove">${detailDto.lovesDto.count}</span> 
+			<i id="iconLove" class='${detailDto.lovesDto.loved ? "fa-solid" : "fa-regular"} fa-heart my_pointer my_red'></i>
+		</div>
 	</div>
 	<hr />
 
-	<div>${boards.content}</div>
+	<div>${detailDto.boards.content}</div>
 </div>
 
 <script>
@@ -55,6 +56,7 @@
 	}
 	
 
+	// 하트 아이콘을 클릭했을때의 로직
 	$("#iconLove").click(()=>{
 		let isLovedState = $("#iconLove").hasClass("fa-solid");
 		if(isLovedState){
@@ -62,27 +64,44 @@
 		}else{
 			insertLove();
 		}
-		renderLove(isLovedState);
 	});
 	
+	// DB에 insert 요청하기
 	function insertLove(){
+		let id = $("#id").val();
 		
+		$.ajax("/boards/"+id+"/loves", {
+			type: "POST",
+			dataType: "json"
+		}).done((res) => {
+			if (res.code == 1) {
+				renderLoves();
+				// 좋아요 수 1 증가
+				let count = $("#countLove").text();
+				alert(count);
+			}else{
+				alert("좋아요 실패했습니다");
+			}
+		});
 	}
-	function deleteLove(){
+	
+	// DB에 delete 요청하기
+	function deleteLove(isLovedState){
 		
 	}
 	
-	function renderLove(isLovedState){
-		if(isLovedState == true){
-			$("#iconLove").removeClass("fa-regular");
-			$("#iconLove").addClass("fa-solid");
-			$("#iconLove").css("color", "red");
-		}else{
-			$("#iconLove").removeClass("fa-solid");
-			$("#iconLove").addClass("fa-regular");
-			$("#iconLove").css("color", "black");
-		}
+	// 빨간색 하트 그리기
+	function renderLoves(){
+		$("#iconLove").removeClass("fa-regular");
+		$("#iconLove").addClass("fa-solid");
 	}
+	
+	// 검정색 하트 그리기
+	function renderCancelLoves(){
+		$("#iconLove").removeClass("fa-solid");
+		$("#iconLove").addClass("fa-regular");
+	}
+
 </script>
 
 <%@ include file="../layout/footer.jsp"%>

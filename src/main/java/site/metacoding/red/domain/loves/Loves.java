@@ -2,6 +2,7 @@ package site.metacoding.red.domain.loves;
 
 import java.sql.Timestamp;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
