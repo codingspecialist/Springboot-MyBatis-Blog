@@ -27,7 +27,7 @@
 				content: $("#content").val()
 			};
 
-			$.ajax("/boards", {
+			$.ajax("/s/boards", {
 				type: "POST",
 				dataType: "json", // 응답 데이터
 				data: JSON.stringify(data), // http body에 들고갈 요청 데이터

@@ -11,7 +11,7 @@
 
 	<div class="d-flex">
 
-		<a href="/boards/${detailDto.id}/updateForm" class="btn btn-warning">수정하러가기</a>
+		<a href="/s/boards/${detailDto.id}/updateForm" class="btn btn-warning">수정하러가기</a>
 
 		<form>
 			<button id="btnDelete" class="btn btn-danger">삭제</button>
@@ -44,7 +44,7 @@
 		let page = $("#page").val();
 		let keyword = $("#keyword").val();
 		
-		$.ajax("/boards/" + id, {
+		$.ajax("/s/boards/" + id, {
 			type: "DELETE",
 			dataType: "json" // 응답 데이터
 		}).done((res) => {
@@ -72,17 +72,18 @@
 	function insertLove(){
 		let id = $("#id").val();
 		
-		$.ajax("/boards/"+id+"/loves", {
+		$.ajax("/s/boards/"+id+"/loves", {
 			type: "POST",
 			dataType: "json"
 		}).done((res) => {
 			if (res.code == 1) {
+				//location.reload();
 				renderLoves();
 				// 좋아요 수 1 증가
 				let count = $("#countLove").text();
 				$("#countLove").text(Number(count)+1);
 				$("#lovesId").val(res.data.id);
-				console.log(res);
+				//console.log(res);
 			}else{
 				alert("좋아요 실패했습니다");
 			}
@@ -94,7 +95,7 @@
 		let id = $("#id").val();
 		let lovesId = $("#lovesId").val();
 		
-		$.ajax("/boards/"+id+"/loves/"+lovesId, {
+		$.ajax("/s/boards/"+id+"/loves/"+lovesId, {
 			type: "DELETE",
 			dataType: "json"
 		}).done((res) => {

@@ -94,7 +94,7 @@ function login() {
 function resign() {
 	let id = $("#id").val();
 
-	$.ajax("/users/" + id, {
+	$.ajax("/s/users/" + id, {
 		type: "DELETE",
 		dataType: "json" // 응답 데이터
 	}).done((res) => {
@@ -115,7 +115,7 @@ function update() {
 
 	let id = $("#id").val();
 
-	$.ajax("/users/" + id, {
+	$.ajax("/s/users/" + id, {
 		type: "PUT",
 		dataType: "json", // 응답 데이터
 		data: JSON.stringify(data), // http body에 들고갈 요청 데이터

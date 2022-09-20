@@ -3,6 +3,7 @@ package site.metacoding.red.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import site.metacoding.red.domain.boards.Boards;
@@ -10,7 +11,6 @@ import site.metacoding.red.domain.boards.BoardsDao;
 import site.metacoding.red.domain.loves.Loves;
 import site.metacoding.red.domain.loves.LovesDao;
 import site.metacoding.red.domain.users.Users;
-import site.metacoding.red.domain.users.UsersDao;
 import site.metacoding.red.web.dto.request.boards.UpdateDto;
 import site.metacoding.red.web.dto.request.boards.WriteDto;
 import site.metacoding.red.web.dto.response.boards.DetailDto;
@@ -21,12 +21,11 @@ import site.metacoding.red.web.dto.response.boards.PagingDto;
 @Service
 public class BoardsService {
 
-	private final UsersDao usersDao;
 	private final BoardsDao boardsDao;
 	private final LovesDao lovesDao;
 
-	public void 좋아요취소(Integer id) {
-		lovesDao.deleteById(id);
+	public void 좋아요취소(Integer lovesId) {
+		lovesDao.deleteById(lovesId);
 	}
 	
 	public Loves 좋아요(Loves loves) {
