@@ -44,7 +44,7 @@ public class BoardsController {
 		Users principal = (Users) session.getAttribute("principal");
 		Loves loves = new Loves(principal.getId(), id);
 		boardsService.좋아요(loves);
-		return new CMRespDto<>(1, "좋아요 성공", null);
+		return new CMRespDto<>(1, "좋아요 성공", loves);
 	}
 	
 	@DeleteMapping("/boards/{id}/loves/{lovesId}")

@@ -8,8 +8,8 @@
 		resultType="site.metacoding.red.domain.loves.Loves">
 		SELECT * FROM loves
 	</select>
-
-	<insert id="insert">
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO loves(usersId, boardsId, createdAt)
 		VALUES(#{usersId}, #{boardsId}, now())
 	</insert>

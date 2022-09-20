@@ -54,3 +54,23 @@ insert into users(username, password, email, createdAt) values('cos', '1234', 'c
 insert into users(username, password, email, createdAt) values('hong', '1234', 'hong@nate.com', NOW());
 COMMIT;
 ```
+
+### 좋아요 + 상세보기 쿼리
+```sql
+SELECT bo.*,
+lo.id lovesId,
+if(lo.id IS NULL, 0, 1) isLoved,
+(SELECT COUNT(*) FROM loves WHERE boardsId = 3) loveCount
+FROM boards bo
+LEFT OUTER JOIN (SELECT * FROM loves WHERE usersId = 3) lo
+ON bo.id = lo.boardsId
+WHERE bo.id = 3
+
+SELECT
+b.*,
+(SELECT id FROM loves WHERE usersId = 1 AND boardsId = 3) lovesId,
+(SELECT 1 FROM loves WHERE usersId = 1 AND boardsId = 3) isLoved,
+(SELECT COUNT(*) FROM loves WHERE boardsId = 3) loveCount
+FROM boards b
+WHERE b.id = 3
+```

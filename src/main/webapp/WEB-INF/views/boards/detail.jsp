@@ -81,6 +81,8 @@
 				// 좋아요 수 1 증가
 				let count = $("#countLove").text();
 				$("#countLove").text(Number(count)+1);
+				$("#lovesId").val(res.data.id);
+				console.log(res);
 			}else{
 				alert("좋아요 실패했습니다");
 			}

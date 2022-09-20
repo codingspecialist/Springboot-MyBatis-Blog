@@ -29,8 +29,9 @@ public class BoardsService {
 		lovesDao.deleteById(id);
 	}
 	
-	public void 좋아요(Loves loves) {
+	public Loves 좋아요(Loves loves) {
 		lovesDao.insert(loves);
+		return loves;
 	}
 	
 	public PagingDto 게시글목록보기(Integer page, String keyword) {
