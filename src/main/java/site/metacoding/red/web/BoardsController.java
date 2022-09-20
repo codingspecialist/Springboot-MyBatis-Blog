@@ -40,7 +40,7 @@ public class BoardsController {
 	
 	// 인증 필요
 	// 어떤 게시글을 누가 좋아하는지 (boardsId, usersId)
-	@PostMapping("/s/boards/{id}/loves")
+	@PostMapping("/s/api/boards/{id}/loves")
 	public @ResponseBody CMRespDto<?> insertLoves(@PathVariable Integer id){
 		Users principal = (Users) session.getAttribute("principal");
 		Loves loves = new Loves(principal.getId(), id);
@@ -49,14 +49,14 @@ public class BoardsController {
 	}
 	
 	// 인증 필요
-	@DeleteMapping("/s/boards/{id}/loves/{lovesId}")
+	@DeleteMapping("/s/api/boards/{id}/loves/{lovesId}")
 	public @ResponseBody CMRespDto<?> deleteLoves(@PathVariable Integer id, @PathVariable Integer lovesId){
 		boardsService.좋아요취소(lovesId);
 		return new CMRespDto<>(1, "좋아요 취소 성공", null);
 	}
 	
 	// 인증 필요
-	@PutMapping("/s/boards/{id}")
+	@PutMapping("/s/api/boards/{id}")
 	public @ResponseBody CMRespDto<?> update(@PathVariable Integer id, @RequestBody UpdateDto updateDto) {
 		boardsService.게시글수정하기(id, updateDto);
 		return new CMRespDto<>(1, "글수정성공", null);
@@ -71,14 +71,14 @@ public class BoardsController {
 	}
 
 	// 인증 필요
-	@DeleteMapping("/s/boards/{id}")
+	@DeleteMapping("/s/api/boards/{id}")
 	public @ResponseBody CMRespDto<?> deleteBoards(@PathVariable Integer id) {
 		boardsService.게시글삭제하기(id);
 		return new CMRespDto<>(1, "게시글삭제", null);
 	}
 
 	// 인증 필요
-	@PostMapping("/s/boards")
+	@PostMapping("/s/api/boards")
 	public @ResponseBody CMRespDto<?> writeBoards(@RequestBody WriteDto writeDto) {
 		Users principal = (Users) session.getAttribute("principal");
 		boardsService.게시글쓰기(writeDto, principal);

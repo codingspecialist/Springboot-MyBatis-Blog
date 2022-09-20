@@ -31,7 +31,7 @@ public class UsersController {
 	private final HttpSession session;
 	
 	// http://localhost:8000/users/usernameSameCheck?username=ssar
-	@GetMapping("/users/usernameSameCheck")
+	@GetMapping("/api/users/usernameSameCheck")
 	public @ResponseBody CMRespDto<Boolean> usernameSameCheck(String username) {
 		boolean isSame = usersService.유저네임중복확인(username);
 		return new CMRespDto<>(1, "성공", isSame);
@@ -57,13 +57,13 @@ public class UsersController {
 		return "users/loginForm";
 	}
 	
-	@PostMapping("/join")
+	@PostMapping("/api/join")
 	public @ResponseBody CMRespDto<?> join(@RequestBody JoinDto joinDto) {
 		usersService.회원가입(joinDto);
 		return new CMRespDto<>(1, "회원가입성공", null);
 	}
 	
-	@PostMapping("/login")
+	@PostMapping("/api/login")
 	public @ResponseBody CMRespDto<?> login(@RequestBody LoginDto loginDto, HttpServletResponse response) {
 		System.out.println("===========");
 		System.out.println(loginDto.isRemember());
@@ -99,7 +99,7 @@ public class UsersController {
 	}
 	
 	// 인증 필요
-	@PutMapping("/s/users/{id}")
+	@PutMapping("/s/api/users/{id}")
 	public @ResponseBody CMRespDto<?> update(@PathVariable Integer id, @RequestBody UpdateDto updateDto) {
 		Users usersPS = usersService.회원수정(id, updateDto);
 		session.setAttribute("principal", usersPS); // 세션 동기화
@@ -107,7 +107,7 @@ public class UsersController {
 	}
 	
 	// 인증 필요
-	@DeleteMapping("/s/users/{id}")
+	@DeleteMapping("/s/api/users/{id}")
 	public @ResponseBody CMRespDto<?> delete(@PathVariable Integer id, HttpServletResponse response) {
 		usersService.회원탈퇴(id);
 		session.invalidate();

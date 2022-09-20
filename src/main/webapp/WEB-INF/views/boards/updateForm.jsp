@@ -16,37 +16,7 @@
 	</form>
 </div>
 
-<script>
-	$("#btnUpdate").click(()=>{
-		update();
-	});
-	
-	function update(){
-		let data = {
-				title: $("#title").val(),
-				content: $("#content").val()
-			};
-
-			let id = $("#id").val();
-
-			$.ajax("/s/boards/" + id, {
-				type: "PUT",
-				dataType: "json", // 응답 데이터
-				data: JSON.stringify(data), // http body에 들고갈 요청 데이터
-				headers: { // http header에 들고갈 요청 데이터
-					"Content-Type": "application/json; charset=utf-8"
-				}
-			}).done((res) => {
-				if (res.code == 1) {
-					alert("게시글 수정 완료");
-					location.href="/boards/"+id;
-				} else {
-					alert("업데이트에 실패하였습니다");
-				}
-			});
-	}
-	
-</script>
+<script src="/js/boards.js"></script>
 
 <script>
 	$('#content').summernote({

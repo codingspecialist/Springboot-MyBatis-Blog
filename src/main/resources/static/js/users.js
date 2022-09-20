@@ -33,7 +33,7 @@ function join() {
 		email: $("#email").val()
 	};
 
-	$.ajax("/join", {
+	$.ajax("/api/join", {
 		type: "POST",
 		dataType: "json", // 응답 데이터
 		data: JSON.stringify(data), // http body에 들고갈 요청 데이터
@@ -50,7 +50,7 @@ function join() {
 function checkUsername() {
 	let username = $("#username").val();
 
-	$.ajax(`/users/usernameSameCheck?username=${username}`, {
+	$.ajax(`/api/users/usernameSameCheck?username=${username}`, {
 		type: "GET",
 		dataType: "json",
 		async: true
@@ -75,7 +75,7 @@ function login() {
 		remember: $("#remember").prop("checked")
 	};
 
-	$.ajax("/login", {
+	$.ajax("/api/login", {
 		type: "POST",
 		dataType: "json", // 응답 데이터
 		data: JSON.stringify(data), // http body에 들고갈 요청 데이터
@@ -94,7 +94,7 @@ function login() {
 function resign() {
 	let id = $("#id").val();
 
-	$.ajax("/s/users/" + id, {
+	$.ajax("/s/api/users/" + id, {
 		type: "DELETE",
 		dataType: "json" // 응답 데이터
 	}).done((res) => {
@@ -115,7 +115,7 @@ function update() {
 
 	let id = $("#id").val();
 
-	$.ajax("/s/users/" + id, {
+	$.ajax("/s/api/users/" + id, {
 		type: "PUT",
 		dataType: "json", // 응답 데이터
 		data: JSON.stringify(data), // http body에 들고갈 요청 데이터
