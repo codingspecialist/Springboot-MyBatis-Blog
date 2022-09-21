@@ -1,12 +1,19 @@
 package site.metacoding.red.web;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -59,11 +66,15 @@ public class UsersController {
 	}
 	
 	@PostMapping("/api/join")
-	public @ResponseBody CMRespDto<?> join(@RequestBody JoinDto joinDto) {
+	public @ResponseBody CMRespDto<?> join(@RequestBody @Valid JoinDto joinDto, BindingResult bindingResult) {
 		
-		// 유효성 검사
-		if(joinDto.getUsername().length() > 20) {
-			throw new MyApiException("유저네임 너무 길어");
+		if(bindingResult.hasErrors()) {
+			System.out.println("에러가 있습니다.");
+			FieldError fe = bindingResult.getFieldError();
+			
+			throw new MyApiException(fe.getDefaultMessage());
+		}else {
+			System.out.println("에러가 없습니다.");
 		}
 		
 		usersService.회원가입(joinDto);
