@@ -143,7 +143,7 @@ function update() {
 
 function koreanCheck() {
 	let username = $("#username").val();
-	let korRule = /^[가-힣]*$/;
+	var korRule = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
 	if (korRule.test(username)) {
 		return true;
 	} else {
